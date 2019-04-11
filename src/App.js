@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import { getUsers } from './assets/ajaxGetMethods';
 import UserList from './components/UserList';
+import { getUsers } from './assets/ajaxGetMethods';
+import { codeChecker } from './assets/codeChecker';
 
 class App extends Component {
   state = {
@@ -12,17 +13,20 @@ class App extends Component {
     await getUsers()
     .then(response => {
       this.setState({
-        users: response,
+        users: response.filter(user => codeChecker(user.location.postcode)),
       })
     });
-    console.log(this.state.users.map(user => user.location.postcode));
-    // console.log(codeChecker(718));
   }
 
   render() {
+    const { users } = this.state
     return (
       <div>
-        <UserList />
+        {
+          users
+          ? <UserList users={ users }/>
+          : 'loading'
+        }
       </div>
     );
   }
