@@ -22,7 +22,7 @@ const hasTwoPrimes = (number) => {
         primes.push(number.toString().substr(j, i));
         counter ++;
         if (counter === 2) {
-          return {hasTwoPrimes: true, primes}
+          return {hasTwoPrimes: true, primes: primes.join(', ')}
         }
       }
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Loading.scss'
+import './Header.scss'
 
 const Header = () => (
   <h1>These are my friends</h1>

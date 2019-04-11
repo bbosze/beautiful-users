@@ -3,6 +3,7 @@ import './App.scss';
 
 import UserList from './components/UserList/UserList';
 import Loading from './components/Loading/Loading';
+import Header from './components/Header/Header';
 import { getUsers } from './assets/ajaxGetMethods';
 import { codeChecker } from './assets/codeChecker';
 
@@ -18,6 +19,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+    console.log(codeChecker(16610));
     getUsers()
     .then(response => {
       let usersWithTwoPrimes = response.filter(user => codeChecker(user.location.postcode).hasTwoPrimes)
@@ -46,6 +48,7 @@ class App extends Component {
     const { filteredUsers, genderOptions } = this.state
     return (
       <div className="app">
+        <Header />
         <select className="app-genderselect" onChange={this.handleSelectChange}>
           {genderOptions.map(option =>
             <option

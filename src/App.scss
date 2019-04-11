@@ -5,9 +5,18 @@
 .app-genderselect {
   -webkit-appearance: none;
   background: #fff;
-  padding: 1em;
+  padding: 0.5em;
   outline: none;
   font-size: 1em;
   margin: 2em 0 2em 2em;
   cursor: pointer;
+}
+
+select {
+  text-align: center;
+  text-align-last: center;
+}
+
+option {
+  text-align: left;
 }
