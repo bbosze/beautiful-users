@@ -32,9 +32,10 @@ class UserList extends Component {
       >
         {
           `${user.name.first.charAt(0).toUpperCase() + user.name.first.slice(1)}
-          ${user.name.last.charAt(0).toUpperCase() + user.name.last.slice(1)},
-          gender: ${user.gender},
-          postal code: ${user.location.postcode}`
+          ${user.name.last.charAt(0).toUpperCase() + user.name.last.slice(1)} |
+          gender: ${user.gender} |
+          postal code: ${user.location.postcode} |
+          first 2 primes: ${user.primes}`
         }
       </li>;
     });

@@ -13,17 +13,16 @@ class App extends Component {
     filteredUsers: null,
     genderOptions: [
       { value: 'all genders', label: 'All genders'},
-      { value: 'male', label: 'Men (self-identified)'},
-      { value: 'female', label: 'Women (self-identified)'},
+      { value: 'male', label: 'Men'},
+      { value: 'female', label: 'Women'},
     ]
   }
 
   componentDidMount = () => {
-    console.log(codeChecker(16610));
     getUsers()
     .then(response => {
       let usersWithTwoPrimes = response.filter(user => codeChecker(user.location.postcode).hasTwoPrimes)
-        // .map(e => e.push(codeChecker(e.location.postcode).primes))
+      usersWithTwoPrimes.forEach(e => e.primes = codeChecker(e.location.postcode).primes);
       this.setState({
         allUsers: usersWithTwoPrimes,
         filteredUsers: usersWithTwoPrimes,
