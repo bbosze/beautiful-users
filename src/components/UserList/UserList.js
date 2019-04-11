@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './UserList.scss';
 
 class UserList extends Component {
   state = {
@@ -30,9 +31,10 @@ class UserList extends Component {
         key={user.login.uuid}
       >
         {
-          `${user.name.first.charAt(0).toUpperCase() + user.name.first.slice(1)},
+          `${user.name.first.charAt(0).toUpperCase() + user.name.first.slice(1)}
           ${user.name.last.charAt(0).toUpperCase() + user.name.last.slice(1)},
-          ${user.location.postcode}`
+          gender: ${user.gender},
+          postal code: ${user.location.postcode}`
         }
       </li>;
     });
@@ -47,6 +49,7 @@ class UserList extends Component {
         <li
           key={number}
           id={number}
+          className={(currentPage === number ? 'pagination-item active' : '')}
           onClick={this.handleClick}
         >
           {number}
@@ -56,10 +59,10 @@ class UserList extends Component {
 
     return (
       <div>
-        <ul>
+        <ul className="users">
           {renderUsers}
         </ul>
-        <ul id="page-numbers">
+        <ul className="pagination">
           {renderPageNumbers}
         </ul>
       </div>

@@ -1,31 +1,65 @@
 import React, { Component } from 'react';
+import './App.scss';
 
-import UserList from './components/UserList';
+import UserList from './components/UserList/UserList';
+import Loading from './components/Loading/Loading';
 import { getUsers } from './assets/ajaxGetMethods';
 import { codeChecker } from './assets/codeChecker';
 
 class App extends Component {
   state = {
-    users: null,
+    allUsers: null,
+    filteredUsers: null,
+    genderOptions: [
+      { value: 'all genders', label: 'All genders'},
+      { value: 'male', label: 'Men (self-identified)'},
+      { value: 'female', label: 'Women (self-identified)'},
+    ]
   }
 
-  componentDidMount = async () => {
-    await getUsers()
+  componentDidMount = () => {
+    getUsers()
     .then(response => {
+      let usersWithTwoPrimes = response.filter(user => codeChecker(user.location.postcode).hasTwoPrimes)
+        // .map(e => e.push(codeChecker(e.location.postcode).primes))
       this.setState({
-        users: response.filter(user => codeChecker(user.location.postcode)),
+        allUsers: usersWithTwoPrimes,
+        filteredUsers: usersWithTwoPrimes,
       })
     });
   }
 
+  handleSelectChange = (event) => {
+    if (event.target.value === 'all genders') {
+      this.setState({
+        filteredUsers: this.state.allUsers,
+      })
+    }
+    else {
+      this.setState({
+        filteredUsers: this.state.allUsers.filter(user => user.gender === event.target.value),
+      });
+    }
+  }
+
   render() {
-    const { users } = this.state
+    const { filteredUsers, genderOptions } = this.state
     return (
-      <div>
+      <div className="app">
+        <select className="app-genderselect" onChange={this.handleSelectChange}>
+          {genderOptions.map(option =>
+            <option
+              key={option.value}
+              value={option.value}
+            >
+              {option.label}
+            </option>)}
+          }
+        </select>
         {
-          users
-          ? <UserList users={ users }/>
-          : 'loading'
+          filteredUsers
+          ? <UserList users={ filteredUsers }/>
+          : <Loading />
         }
       </div>
     );

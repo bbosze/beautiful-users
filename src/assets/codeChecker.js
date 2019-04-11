@@ -15,17 +15,19 @@ const isPrime = num => {
 const hasTwoPrimes = (number) => {
   let splitted = number.toString().split('');
   let counter = 0;
+  let primes = [];
   for (let i = 1; i <= splitted.length; i ++) {
     for (let j = 0; j < splitted.length - (i - 1); j ++) {
       if (isPrime(number.toString().substr(j, i))) {
+        primes.push(number.toString().substr(j, i));
         counter ++;
         if (counter === 2) {
-          return true
+          return {hasTwoPrimes: true, primes}
         }
       }
     }
   }
-  return false;
+  return {hasTwoPrimes: false};
 }
 
 export const codeChecker = (postCode) => {
