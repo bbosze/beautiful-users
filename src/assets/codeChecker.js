@@ -18,7 +18,8 @@ const hasTwoPrimes = (number) => {
   let primes = [];
   for (let i = 1; i <= splitted.length; i ++) {
     for (let j = 0; j < splitted.length - (i - 1); j ++) {
-      if (isPrime(number.toString().substr(j, i))) {
+      if (isPrime(number.toString().substr(j, i))
+      && number.toString().substr(j, i).charAt(0) !== 0) {
         primes.push(number.toString().substr(j, i));
         counter ++;
         if (counter === 2) {
